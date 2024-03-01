@@ -1,0 +1,19 @@
+<ul>
+    {% if genres %}
+        {% for c in genres %}
+            {% if g == current_genre %}
+            <li>
+            <strong>
+                <a href="{% url 'MVapp:show_genre' g.slug %}">{{ g.name }}</a>
+            </strong>
+            </li>
+            {% else %}
+            <li>
+                <a href="{% url 'MVapp:show_genre' g.slug %}">{{ g.name }}</a>
+            </li>  
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <li><strong>There are no genres present.</strong></li>
+    {% endif %}
+</ul>

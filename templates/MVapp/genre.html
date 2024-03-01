@@ -1,0 +1,31 @@
+{% extends 'MVapp/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    {% if genre %}
+        {{ genre.name }}
+    {% else %}
+        Unknown Genre
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+    {% if genre %}
+    <h1>{{ genre.name }}</h1>
+    {% if songs %}
+    <ul>
+        {% for song in songs %}
+        <li><a href="{{ song.url }}">{{ song.title }}</a></li>
+        <iframe width="560" height="315" src="{{ song.url }}" referrerpolicy="no-referrer-when-downgrade" frameborder="0" allowfullscreen></iframe>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <strong>No songs currently in genre.</strong>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <a href="{% url 'MVapp:add_song' genre.slug %}">Add Song</a> <br/>
+    {% endif %}
+    {% else %}
+    The specified genre does not exist.
+    {% endif %}
+{% endblock %}

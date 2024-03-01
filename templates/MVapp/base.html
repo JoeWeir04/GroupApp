@@ -13,8 +13,27 @@
     </head>
     <body>
         <div>
+            <div>
+                {% if user.is_authenticated %}
+                    Hi there {{ user.username }}!!
+                {% else %}
+                    Hey you don't have an account, you should create one <a href="{% url 'MVapp:register' %}">here</a></li>,
+                    or login <a href="{% url 'MVapp:login' %}">here!</a>
+                {% endif %}
+                <br />
+                <strong>{{ boldmessage }}</strong><br />
+            </div>
         {% block body_block %}
         {% endblock %}  
-        <p>This is from the base html</p>     
+        <p>This is from the base html</p>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'MVapp:logout' %}">Logout</a></li>
+                <li><a href="{% url 'MVapp:add_genre' %}">Add Genre</a></li>
+            {% else %}
+                <li><a href="{% url 'MVapp:login' %}">Login</a></li>
+                <li><a href="{% url 'MVapp:register' %}">Register</a></li>
+            {% endif %}
+            <li><a href="{% url 'MVapp:about' %}">About</a></li>
+            <li><a href="{% url 'MVapp:index' %}">Index</a></li>
     </body>
 </html>
