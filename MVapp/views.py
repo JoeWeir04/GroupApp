@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from MVapp.models import Song,Genre
 from MVapp.forms import SongForm,GenreForm
+from django.db.models import Q
 
 
 # Create your views here.
@@ -139,5 +140,16 @@ def show_genre(request, genre_name_slug):
         context_dict['genre'] = None
 
     return render(request,'MVapp/genre.html', context=context_dict)
+
+
+def search_results(request):
+
+    if request.method == "POST":
+        query = request.POST.get('q', '')
+        songs = Song.objects.filter(title__contains=query)
+        return render(request, 'MVapp/search_songs.html', {'query' :query, 'songs' : songs})
+    else:
+        return render(request, 'MVapp/search_songs.html',{})
+
 
 

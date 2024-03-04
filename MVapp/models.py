@@ -23,6 +23,7 @@ class Genre(models.Model):
         return self.name
     
     
+    
 class Song(models.Model):
     TITLE_MAX_LENGTH = 128
     URL_MAX_LENGTH = 200

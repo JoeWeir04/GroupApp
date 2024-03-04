@@ -1,0 +1,24 @@
+{% extends 'MVapp/base.html' %}
+{% load staticfiles %}
+
+
+
+{% block body_block %}
+	<center>
+
+
+	{% if query %}
+		<h1> Your search results for : {{ query }} </h1>	
+		<br/>
+		<h3>Songs</h3>
+		<ul>
+		{% for song in songs %}
+			<li></li>{{ song.title }}</li>
+		{% endfor %}
+	</ul>
+		{% else %}
+			<p>Nothing was searched</p>
+	{% endif %}
+	
+	</center>
+{% endblock %}

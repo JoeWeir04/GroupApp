@@ -22,6 +22,12 @@
                 {% endif %}
                 <br />
                 <strong>{{ boldmessage }}</strong><br />
+                <form class="d-flex" method="POST" action ="{% url 'MVapp:search_results' %}"> 
+		
+                    {% csrf_token %}
+                    <input class="form-control m-2" type="search" placeholder="Search Songs" aria-label="Search" name="q">
+                    <button class ="btn btn-outline-secondary" type ="submit">Search</button>
+                </form>
             </div>
         {% block body_block %}
         {% endblock %}  
