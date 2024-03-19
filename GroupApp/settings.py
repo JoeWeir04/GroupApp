@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'MVapp',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,11 @@ STATIC_URL = '/static/'
 MEDIA_URL ='/media/'
 
 SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
+
+REGISTRATION_OPEN = True
+
+REGISTRATION_AUTO_LOGIN = True
+
+LOGIN_REDIRECT_URL = 'MVapp:index'
+
+LOGIN_URL = 'auth_login'

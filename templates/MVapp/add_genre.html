@@ -6,7 +6,11 @@
 {% endblock %}
 
  {% block body_block %}
-    <h1>Add a Genre</h1>
+ <div class="jumbotron p-4">
+    <div class ="containter">
+    <h1 class = "jumbotron-heading">Add a Genre</h1>
+    </div>
+ </div>
     
     <form id="genre_form" method="post" action="{% url 'MVapp:add_genre' %}">
         {% csrf_token %}
@@ -19,7 +23,7 @@
             {{ field }}
         {% endfor %}
         <input type="submit" name="submit" value="Create Genre" />
-    </form>
+    </form> 
  {% endblock %}
     
 

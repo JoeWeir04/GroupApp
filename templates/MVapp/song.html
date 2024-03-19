@@ -1,0 +1,26 @@
+{% extends 'MVapp/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    {% if song %}
+        {{ song.title }} 
+    {% else %}
+        Unknown Genre
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+    {% if song %}
+    <div class = "jumbotron p-4">
+        <div class = "containeer">
+            <h1 class ="jumbotron-heading">{{ song.title }}</h1>
+            Views: {{ song.views }} <br />
+            Likes: {{ song.likes }}
+        </div>
+    </div>      
+    <iframe width="560" height="315" src="{{ song.url }}" referrerpolicy="no-referrer-when-downgrade" frameborder="0" allowfullscreen></iframe>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    {% endif %}
+{% endblock %}
