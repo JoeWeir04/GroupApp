@@ -32,16 +32,22 @@
                 
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'MVapp:index' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'MVapp:index' %}">Home <span data-feather="home"></span></a></li>
                         <li class="nav-item "><a class="nav-link" href="{% url 'MVapp:about' %}">About</a></li>
                         {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next=/MVapp/">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next=/MVapp/">Logout <span data-feather="log-out"></span></a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'MVapp:add_genre' %}">Add Genre</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'MVapp:profile' user.username %}">Profile <span data-feather="user"></span></a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Register Here</a></li>
-                        <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
+                        <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login<span data-feather="log-in"></span></a></li>
                         {% endif %}
+                        <form class="form-inline ml-auto" method="POST" action="{% url 'MVapp:search_results' %}">
+                            {% csrf_token %}
+                            <input class="form-control form-control-sm mr-sm-2" type="search" placeholder="Search Songs" aria-label="Search" name="q">
+                            <button class="btn btn-outline-primary btn-sm my-2 my-sm-0" type="submit"><span data-feather="search"></span></button>
+                        </form>
                     </ul>
                 </div>
             </nav>
@@ -51,9 +57,12 @@
             <div class="row">
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
-                    {% block sidebar_block %}
-                        {% get_genre_list genre %}
-                    {% endblock %}
+                        <div class="sidebar-heading">
+                            <h4><u>Genres</u></h4> <!-- Add heading inside a div -->
+                        </div>
+                        {% block sidebar_block %}
+                            {% get_genre_list genre %}
+                        {% endblock %}
                     </div>
                 </nav>
                 
@@ -68,7 +77,12 @@
                 </main>
             </div>
         </div>
-        
+        <style>
+            .sidebar-heading {
+                padding-left: 15px; /* Adjust the padding value as needed */
+                text-transform: none; /* Preserve original capitalization */
+            }
+        </style>
         <!-- Bootstrap core JavaScript -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -78,50 +92,3 @@
     </body>
 </html>
 
-{% comment %}
-<!DOCTYPE html>
-{% load staticfiles %}
-
-<html>
-    <head lang="en">
-        <meta charset="UTF-8">
-        <title>
-            MVapp - 
-            {% block title_block %}
-                MVapp!
-            {% endblock %}
-        </title>
-    </head>
-    <body>
-        <div>
-            <div>
-                {% if user.is_authenticated %}
-                    Hi there {{ user.username }}!!
-                {% else %}
-                    Hey you don't have an account, you should create one <a href="{% url 'registration_register' %}">here</a></li>,
-                    or login <a href="{% url 'auth_login' %}">here!</a>
-                {% endif %}
-                <br />
-                <strong>{{ boldmessage }}</strong><br />
-                <form class="d-flex" method="POST" action ="{% url 'MVapp:search_results' %}"> 
-		
-                    {% csrf_token %}
-                    <input class="form-control m-2" type="search" placeholder="Search Songs" aria-label="Search" name="q">
-                    <button class ="btn btn-outline-secondary" type ="submit">Search</button>
-                </form>
-            </div>
-        {% block body_block %}
-        {% endblock %}  
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'auth_logout' %}?next={% url 'MVapp:index' %}">Logout</a></li>
-                <li><a href="{% url 'auth_password_change' %}">Change Password</a></li>
-                <li><a href="{% url 'MVapp:add_genre' %}">Add Genre</a></li>
-            {% else %}
-                <li><a href=" {% url 'auth_login' %}">Login</a></li>
-                <li><a href="{% url 'registration_register' %}">Sign Up</a></li>
-            {% endif %}
-            <li><a href="{% url 'MVapp:about' %}">About</a></li>
-            <li><a href="{% url 'MVapp:index' %}">Index</a></li>
-    </body>
-</html>
-{% endcomment %}

@@ -51,5 +51,5 @@ class UserProfileForm(forms.ModelForm):
     artistName = forms.CharField(label="Artist Name",required=False,help_text="Only required if creating an Artist Account.")
     class Meta:
         model = UserProfile
-        fields = ('website','picture','isArtist','artistName')
+        fields = ('picture','isArtist','artistName')
 

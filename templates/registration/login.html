@@ -11,6 +11,7 @@
         <div class="p-5">
             <form method="form-signin" role="form" method="post" action=".">
                 {% csrf_token %}
+                {{ form.errors }}
                 <div class="p-1">
                 <label for="inputUsername" class="sr-only">Username</label>
                 </div>

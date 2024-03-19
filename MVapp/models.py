@@ -49,7 +49,6 @@ class UserProfile(models.Model):
     ARTIST_LENGTH = 200
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     isArtist = models.BooleanField(default=True)
-    website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     artistName = models.CharField(max_length=ARTIST_LENGTH, blank=True,help_text = "Only required if creating an Artist Account",)
 
