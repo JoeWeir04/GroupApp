@@ -29,7 +29,7 @@ SECRET_KEY = '2a2kx^rgz-b7^s^qg&h79b)omow-hdvur@%*3b3x87qbcdcqa-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["joeweir020.python"]
 
 
 # Application definition
