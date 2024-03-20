@@ -1,0 +1,13 @@
+
+This goes on the song html
+<a href="{% url 'MVAPP:comment_for_song' song_id=song.id %}">Add a comment</a>
+
+
+
+comment form
+<h2>Add a new comment</h2>
+<form action="{% url 'MVAPP:comment_for_song' song_id=song.id %}" method="post">
+    {{ comment_form.as_p }}
+    {% csrf_token %}
+    <button type="submit"> Add comment</button>
+</form>

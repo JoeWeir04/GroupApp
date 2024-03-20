@@ -2,6 +2,7 @@ from django import forms
 from MVapp.models import Genre,Song
 from django.contrib.auth.models import User
 from MVapp.models import UserProfile
+from MVapp.models import Comment
 
 
 class GenreForm(forms.ModelForm):
@@ -48,4 +49,9 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('website','picture')
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['song', 'commenter', 'body']
 

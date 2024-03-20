@@ -45,3 +45,19 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+class Comment(models.Model):
+    song = models.ForeignKey(Song, related_name='comments', on_delete=models.CASCADE)
+    commenter = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created']
+        indexes = [
+            models.Index(fields=['created']),]
+
+        def __str__(self):
+                    return f'Comment by {self.commenter} on {self.song}'
+
+
+

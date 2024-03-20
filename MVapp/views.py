@@ -1,5 +1,5 @@
 from unicodedata import category
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse 
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -7,9 +7,10 @@ from MVapp.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
-from MVapp.models import Song,Genre
-from MVapp.forms import SongForm,GenreForm
+from MVapp.models import Song,Genre, Comment
+from MVapp.forms import SongForm,GenreForm, CommentForm
 from django.db.models import Q
+
 
 
 # Create your views here.
@@ -152,4 +153,22 @@ def search_results(request):
         return render(request, 'MVapp/search_songs.html',{})
 
 
+@login_required
+def comment_for_song(request, song_id):
+    song = get_object_or_404(Song, pk=song_id)
+    comment = None
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.song = song
+            comment.author = request.user
+            comment.save()
+            return redirect('comment_for_song', song_id=song.id)
 
+    else:
+        comment_form= CommentForm()
+    return render(request, 'song/detail.html', {'song' : song, 'comment_form' : comment_form})
+
+        
+    

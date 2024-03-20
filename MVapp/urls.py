@@ -12,4 +12,5 @@ path('genre/<slug:genre_name_slug>/add_song/',views.add_song, name='add_song'),
 path('login/',views.user_login,name='login'),
 path('logout/',views.user_logout,name='logout'),
 path('search/', views.search_results, name='search_results'),
+path('song/<int:song_id>/comment/', views.comment_for_song, name = 'comment_for_song'),
 ]
