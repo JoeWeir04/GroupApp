@@ -15,8 +15,8 @@
         <div class = "containeer">
             <h1 class ="jumbotron-heading">{{ song.title }}</h1>
             <h3>by {{ song.artist }}</h3>
-            Views: {{ song.views }} <br />
-            Likes: {{ song.likes }}
+            <span data-feather = "eye"></span> Views -  {{ song.views }} <br />
+            <span data-feather = "thumbs-up"></span> Likes: {{ song.likes }}
         </div>
     </div>
     {% if song.isExplicit and not user.userprofile.isMature %}
