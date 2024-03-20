@@ -164,6 +164,12 @@ class ProfileView(View):
             print(form.errors)
         context_dict = {'user_profile':user_profile,'selected_user':user,'form':form}
         return render(request,'MVapp/profile.html',context_dict)
+    
+class ListProfilesView(View):
+    @method_decorator(login_required)
+    def get(self,request):
+        profiles = UserProfile.objects.all()
+        return render(request,'MVapp/list_profiles.html',{'user_profile_list':profiles})
 
     
 

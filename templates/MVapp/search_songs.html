@@ -17,9 +17,13 @@
 		<h3>Songs</h3>
 		<div class ="list-group">
 		<div class ="list-group-item">
+		<ul class="list-group">
 		{% for song in songs %}
-			<a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }}</a>
+			<li class="list-group-item">
+				<a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }}</a>
+			</li>
 		{% endfor %}
+		</ul>
 		</div>
 		</div>
 		{% else %}

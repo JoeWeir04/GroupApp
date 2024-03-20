@@ -16,10 +16,19 @@
 <div class = "container">
     <div class = "row">
         {{ MEDIA_URL }}
+        {% if user_profile.picture %}
         <img src="{{ MEDIA_URL }}{{ user_profile.picture.url }}"
         width="300"
         height="300"
-        alt="{{ selected_user.username }}'s profile image" />
+        alt="{{ selected_user.username }}'s profile image" 
+        style="padding: 20px;" >
+        {% else %}
+        <img src="{% static 'images/default_profile_pic.jpg' %}"
+        width="300"
+        height="300"
+        alt="{{ selected_user.username }}'s profile image" 
+        style="padding: 20px;" >
+        {% endif %}
         <br />
         <div>
             {% if selected_user == user %}
@@ -30,8 +39,12 @@
             </form>
             {% else %}
             <p>
-                <strong>Artist Account::</strong>
-                <a href="{{ user_profile.isArist }}">{{ user_profile.artistName }}</a>
+                {% if user_profile.isArtist %}
+                <strong>Artist Account:</strong>
+                {{ user_profile.artistName }}
+                {% else %}
+                User Account
+                {% endif %}
             </p>
             {% endif %}
         </div>

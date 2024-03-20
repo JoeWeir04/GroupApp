@@ -1,0 +1,53 @@
+    {% extends 'MVapp/base.html' %}
+    {% load staticfiles %}
+
+    {% block title_block %}
+        User Profiles
+    {% endblock %}
+
+    {% block body_block %}
+    <div class = "jumbotron p-4">
+        <div class = "container">
+            <h1 class = "jumbotron-heading">
+                User Profiles
+            </h1>
+        </div>
+    </div>
+
+    <div class = "container">
+        <div class ="row">
+            {% if user_profile_list %}
+            <div class = "panel-body">
+                <div class = "list-group">
+                {% for list_user in user_profile_list %}
+                    <div class ="list-group-item">
+                        <h5 class ="list-group-item-heading">
+                        <div style="float: right;">
+                            <a href="{% url 'MVapp:profile' list_user.user.username %}">
+                                {{ list_user.user.username }}
+                            </a>
+                            {% if list_user.picture %}
+                            <img src="{{ MEDIA_URL }}{{ list_user.picture.url }}"
+                            width="50"
+                            height="50"
+                            alt="{{ list_user.user.username }}'s profile image" 
+                            style="padding: 1px;" >
+                            {% else %}
+                            <img src="{% static 'images/default_profile_pic.jpg' %}"
+                            width="50"
+                            height="50"
+                            alt="{{ list_user.user.username }}'s profile image" 
+                            style="padding: 1px;" >
+                            {% endif %}
+                        </div>
+                        </h5>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p>There are no users present on MVapp.</p>
+        {% endif %}
+    </div>
+    {% endblock %}
