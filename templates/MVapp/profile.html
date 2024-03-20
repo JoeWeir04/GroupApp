@@ -7,35 +7,56 @@
 
 {% block body_block %}
 <div class="jumbotron p-4">
-    <div class ="container">
-        <h1 class = "jumbotron-heading">
+    <div class="container">
+        <h1 class="jumbotron-heading">
             {{ selected_user.username }}'s Profile
         </h1>
     </div>
 </div>
-<div class = "container">
-    <div class = "row">
+<div class="container">
+    <div class="row">
         {{ MEDIA_URL }}
         {% if user_profile.picture %}
         <img src="{{ MEDIA_URL }}{{ user_profile.picture.url }}"
         width="300"
         height="300"
         alt="{{ selected_user.username }}'s profile image" 
-        style="padding: 20px;" >
+        style="padding: 20px;">
         {% else %}
         <img src="{% static 'images/default_profile_pic.jpg' %}"
         width="300"
         height="300"
         alt="{{ selected_user.username }}'s profile image" 
-        style="padding: 20px;" >
+        style="padding: 20px;">
         {% endif %}
-        <br />
+        <br>
+        
         <div>
             {% if selected_user == user %}
-            <form method="post" actions="." enctype="multipart/form-data">
+            {% if user_profile.isArtist %}
+            <h3><u>Artist Account</u></h3>
+            {% else %}
+            <h3><u>User Account</u></h3>
+            {% endif %}
+            <form method="post" action="." enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Update" />
+                <div class="form-group">
+                    <label for="id_picture">Picture:</label>
+                    <input type="file" class="form-control-file" id="id_picture" name="picture">
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="id_isArtist" name="isArtist" {% if user_profile.isArtist %}checked{% endif %}>
+                    <label class="form-check-label" for="id_isArtist">Create Artist Account</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="id_isMature" name="isMature" {% if user_profile.isMature %}checked{% endif %}>
+                    <label class="form-check-label" for="id_isMature">Mature Account</label>
+                </div>
+                <div class="form-group">
+                    <label for="id_artistName">Artist Name:</label>
+                    <input type="text" class="form-control" id="id_artistName" name="artistName" value="{{ user_profile.artistName }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
             {% else %}
             <p>

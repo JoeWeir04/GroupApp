@@ -50,9 +50,12 @@ def add_song(request, genre_name_slug):
         if form.is_valid():
             if genre:
                 song = form.save(commit=False)
-                song.genre = genre
-                #song.artist = request.user.userprofile.artistName   
+                song.genre = genre  
                 song.views = 0
+                
+
+                user_profile = request.user.userprofile
+                song.artist = user_profile.artistName
                 song.save()
 
                 return redirect(reverse('MVapp:show_genre',

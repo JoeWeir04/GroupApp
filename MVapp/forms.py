@@ -26,6 +26,7 @@ class SongForm(forms.ModelForm):
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     artist = forms.CharField(max_length=200,
                          help_text="Please enter the artist name")
+    
 
 
     class Meta:
@@ -46,10 +47,10 @@ class UserForm(forms.ModelForm):
     
     
 class UserProfileForm(forms.ModelForm):
-        
     isArtist = forms.BooleanField(label="Do you want to create an artist account?", required=False)
+    isMature = forms.BooleanField(label="Mature Account", required=False,help_text="Explicit songs will not be shown to you if your account is not mature")
     artistName = forms.CharField(label="Artist Name",required=False,help_text="Only required if creating an Artist Account.")
     class Meta:
         model = UserProfile
-        fields = ('picture','isArtist','artistName')
+        fields = ('picture','isMature','isArtist','artistName',)
 

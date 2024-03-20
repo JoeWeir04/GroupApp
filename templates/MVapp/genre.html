@@ -16,11 +16,28 @@
             <h1 class = "jumbotron-heading">{{ genre.name }}</h1>
         </div>
     </div>
+    {% if user.is_authenticated %}
+        {% if user.userprofile.isArtist %}
+        <div class ="button-pad">
+            <button class="btn btn-primary" id="add-song-btn">
+            <a href="{% url 'MVapp:add_song' genre.slug %}">Add Song</a> <br/>
+            </button>
+        </div>
+        {% else %}
+        <div class ="button-pad">
+            <button class="btn btn-primary" id="restricted-btn">
+                <a href="{% url 'MVapp:profile' user.username %}">Create Artist Account to add song <span data-feather="edit"></span></a>
+            </button>
+        </div>
+        {% endif %}
+    {% endif %}
     {% if songs %}
-    <ul>
+    <ul class = "list-group">
         {% for song in songs %}
-        <li><a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }}</a></li>
+        <div>
+        <li class = "list-group-item"><a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }}</a></li>
         <iframe width="560" height="315" src="{{ song.url }}" referrerpolicy="no-referrer-when-downgrade" frameborder="0" allowfullscreen></iframe>
+        </div>
         {% endfor %}
     </ul>
     {% else %}
@@ -29,11 +46,6 @@
         <strong>No songs currently in genre.</strong>
         </div>
     </div>
-    {% endif %}
-    {% if user.is_authenticated %}
-        {% if not user.userprofile.isArtist %}
-        <a href="{% url 'MVapp:add_song' genre.slug %}">Add Song</a> <br/>
-        {% endif %}
     {% endif %}
     {% else %}
     The specified genre does not exist.

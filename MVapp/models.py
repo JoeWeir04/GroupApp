@@ -2,9 +2,6 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
-# Create your models here.
-
-
 
 class Genre(models.Model):
     NAME_MAX_LENGTH = 128
@@ -38,7 +35,14 @@ class Song(models.Model):
     artist = models.CharField(max_length = 200,blank = True)
 
     def save(self, *args, **kwargs):  
-        self.slug = slugify(self.title)
+        if not self.slug:
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+            while Song.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
         super(Song, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -48,9 +52,12 @@ class Song(models.Model):
 class UserProfile(models.Model):
     ARTIST_LENGTH = 200
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    isArtist = models.BooleanField(default=True)
+    isArtist = models.BooleanField(default=False)
+    isMature = models.BooleanField(default=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     artistName = models.CharField(max_length=ARTIST_LENGTH, blank=True,help_text = "Only required if creating an Artist Account",)
+
+    
 
     def save(self, *args, **kwargs):
         if self.isArtist:

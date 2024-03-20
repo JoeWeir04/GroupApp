@@ -1,0 +1,30 @@
+#add-song-btn{
+    padding: 4px 8px;
+    font-size: 20x;
+    color: white;
+}
+
+#add-song-btn a {
+    color: inherit; 
+}
+
+#restricted-btn{
+
+    padding: 4px 8px;
+    font-size: 20px;
+    color: white;
+}
+
+#restricted-btn a {
+    color: inherit; 
+}
+
+.button-pad{
+    padding:10px 0px;
+}
+
+.artist-name {
+    opacity: 0.2;
+    color:aqua;
+}
+
