@@ -18,10 +18,17 @@
             Views: {{ song.views }} <br />
             Likes: {{ song.likes }}
         </div>
-    </div>      
+    </div>
+    {% if song.isExplicit and not user.userprofile.isMature %}
+    <div class="container alert alert-danger mt-4">
+        Sorry, this song contains explicit content and cannot be viewed because your account settings 
+        indicate that you do not want to see explicit content. <br />
+         You can update your preferences in your
+        profile settings if you wish to change this.
+    </div>
+    {% else %}      
     <iframe width="560" height="315" src="{{ song.url }}" referrerpolicy="no-referrer-when-downgrade" frameborder="0" allowfullscreen></iframe>
     {% endif %}
-
-    {% if user.is_authenticated %}
     {% endif %}
+
 {% endblock %}

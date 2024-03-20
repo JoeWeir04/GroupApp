@@ -33,6 +33,7 @@ class Song(models.Model):
     likes = models.IntegerField(default = 0)
     slug = models.SlugField(unique=True)
     artist = models.CharField(max_length = 200,blank = True)
+    isExplicit = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):  
         if not self.slug:

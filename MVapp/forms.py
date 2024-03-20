@@ -24,14 +24,13 @@ class SongForm(forms.ModelForm):
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
-    artist = forms.CharField(max_length=200,
-                         help_text="Please enter the artist name")
+    isExplicit = forms.BooleanField(label="Explicit",required=False,help_text="Check this box if the song contains explicit content, such as strong language or mature themes.")
     
 
 
     class Meta:
         model = Song
-        exclude = ('genre',)
+        exclude = ('genre','artist')
 
 
    
