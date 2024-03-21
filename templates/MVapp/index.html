@@ -8,7 +8,7 @@
 {% block body_block %}
 <div class="jumbotron p-4">
     <div class ="containter">
-        <h1 class = "jumbotron-heading">The movie app says...</h1>
+        <h1 class = "jumbotron-heading">TuneShare says...</h1>
         <div>
            <h2 class ="h2">
             {% if user.is_authenticated %}
@@ -32,7 +32,7 @@
                     <ul class="list-group">
                     {% for genre in genres %}
                     <li class="list-group-item">
-                        <a href="{% url 'MVapp:show_genre' genre.slug %}">{{ genre.name }}</a>
+                        <a href="{% url 'MVapp:show_genre' genre.slug %}">{{ genre.name }} </a>
                     </li>
                     {% endfor %}
                     </ul>
@@ -52,7 +52,7 @@
                     <ul class="list-group">
                     {% for song in songs %}
                         <li class="list-group-item">
-                            <a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }}</a>
+                            <a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }} <span class="text-muted">- by {{ song.artist }}</span> </a>
                         </li>
                     {% endfor %}
                     </ul>

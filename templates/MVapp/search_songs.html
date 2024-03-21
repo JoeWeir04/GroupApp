@@ -20,7 +20,7 @@
 		<ul class="list-group">
 		{% for song in songs %}
 			<li class="list-group-item">
-				<a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }}</a>
+				<a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }} <span class="text-muted">- by {{ song.artist }}</span> </a>
 			</li>
 		{% endfor %}
 		</ul>

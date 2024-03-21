@@ -20,6 +20,20 @@
             <span data-feather = "thumbs-up"></span> Likes: {{ song.likes }}
         </div>
     </div>
+
+    <div>
+        <strong id="like-count">{{ song.likes }}</strong>Likes
+        {% if user.is_authenticated %}
+        <button id="like-btn"
+            data-songid="{{ song.id }}"
+            class="btn btn-primary btn-sm"
+            type="button">
+            <span data-feather="thumbs-up"></span>
+            Like Song
+        </button>
+        {% endif %}
+    </div>
+
     {% if song.isExplicit and not user.userprofile.isMature %}
     <div class="container alert alert-danger mt-4">
         Sorry, this song contains explicit content and cannot be viewed because your account settings 
@@ -35,9 +49,12 @@
     
     <h2>Comments</h2>
     {% for comment in comments %}
-        <p>{{ comment.body }}</p>
-        <p>Comment by: {{ comment.commenter.username }}</p>
-        <hr>
+    <div class="card mb-3">
+        <div class="card-body">
+            <p class="card-text">{{ comment.body }}</p>
+            <p class="card-subtitle mb-2 text-muted">Comment by: {{ comment.commenter.username }}</p>
+        </div>
+    </div>
     {% empty %}
         <p>No comments yet.</p>
     {% endfor %}

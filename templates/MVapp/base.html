@@ -12,7 +12,7 @@
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
     <title>
-        MVapp - {% block title_block %}MVapp{% endblock %}
+        MVapp - {% block title_block %}TuneShare{% endblock %}
     </title>
     
     <!-- Bootstrap core CSS -->
@@ -26,7 +26,7 @@
     <body>
         <header>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark p-0">
-                <a class="navbar-brand p-2" href="{% url 'MVapp:index' %}">MVapp <span data-feather="headphones"></span></a>
+                <a class="navbar-brand p-2" href="{% url 'MVapp:index' %}">TuneShare <span data-feather="headphones"></span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -94,6 +94,7 @@
         <script src="{% static 'js/dashboard.js' %}"></script>
         <script src="{% static 'js/jquery-3.3.1.min.js' %}" crossorigin="anonymous"></script>
         <script src="{% static 'js/MVapp-query.js' %}" crossorigin="anonymous"></script>
+        <script src="{% static 'js/MVapp-ajax.js' %}" crossorigin="anonymous"></script>
     </body>
 </html>
 

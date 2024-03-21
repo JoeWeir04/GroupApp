@@ -27,4 +27,24 @@
     opacity: 0.2;
     color:aqua;
 }
+.comment-form .form-group {
+    margin-bottom: 20px;
+}
+
+.comment-form label {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-form .form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.comment-form .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
 

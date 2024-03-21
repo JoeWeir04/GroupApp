@@ -194,6 +194,23 @@ def comment_for_song(request, song_id):
 
     return render(request, 'MVapp/song.html',{'song':song,'comment_form':comment_form})
 
+class LikeSongView(View):
+    @method_decorator(login_required)
+    def get(self,request):
+        song_id= request.GET['song_id']
+        try:
+            song=Song.objects.get(id=int(song_id))
+        except Song.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+        
+        song.likes = song.likes + 1
+        song.save()
+
+        return HttpResponse(song.likes)
+
+
 
     
 
