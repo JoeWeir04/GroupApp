@@ -1,0 +1,33 @@
+{% extends 'MVapp/base.html' %}
+{% load staticfiles %}
+{% block title_block %}
+	Search
+{% endblock %}
+
+
+{% block body_block %}
+<div class="jumbotron p-4">
+    <div class ="containter">
+	<h1 class = "jumbotron-heading">Search for Songs</h1>
+	</div>
+</div>
+	{% if query %}
+		<h2> Your search results for : {{ query }} </h2>	
+		<br/>
+		<h3>Songs</h3>
+		<div class ="list-group">
+		<div class ="list-group-item">
+		<ul class="list-group">
+		{% for song in songs %}
+			<li class="list-group-item">
+				<a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }} <span class="text-muted">- by {{ song.artist }}</span> </a>
+			</li>
+		{% endfor %}
+		</ul>
+		</div>
+		</div>
+		{% else %}
+			<p>Nothing was searched</p>
+	{% endif %}
+	
+{% endblock %}

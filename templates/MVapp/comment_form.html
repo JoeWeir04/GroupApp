@@ -1,0 +1,8 @@
+<form action="{% url 'MVapp:comment_for_song' song_id=song.id %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="id_body">Body:</label>
+        <textarea id="id_body" name="body" rows="4" cols="50" class="form-control">{{ comment_form.body }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add comment</button>
+</form>

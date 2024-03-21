@@ -1,0 +1,40 @@
+{% extends 'MVapp/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Register - Step 2
+{% endblock %}
+
+{% block body_block %}
+<div class="jumbotron p-4">
+    <div class="container">
+        <h1 class="jumbotron-heading">
+            Register Here - Step 2
+        </h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <form method="post" action="{% url 'MVapp:register_profile' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Oops! There was an error:</strong>
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+            {{ form.as_p }}
+            
+            <input type="submit" value="Create Profile" />  
+        </form>
+    </div>
+</div>
+{% endblock %}

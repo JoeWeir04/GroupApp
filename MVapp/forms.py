@@ -1,7 +1,7 @@
 from django import forms
-from MVapp.models import Genre,Song
+from MVapp.models import Genre, Song
 from django.contrib.auth.models import User
-from MVapp.models import UserProfile
+from MVapp.models import UserProfile,Comment
 
 
 class GenreForm(forms.ModelForm):
@@ -15,25 +15,26 @@ class GenreForm(forms.ModelForm):
         model = Genre
         fields = ('name',)
 
+
 class SongForm(forms.ModelForm):
     title = forms.CharField(max_length=Song.TITLE_MAX_LENGTH,
                             help_text="Please enter the title of the song.")
     url = forms.URLField(max_length=200,
-                         help_text="Please enter the youtube embed URL of the songs music video.")
-    views = forms.IntegerField(widget=forms.HiddenInput(), initial = 0)
+                         help_text="Please enter only src URL of the youtube embed URL for the song's music video.")
+    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
+    isExplicit = forms.BooleanField(label="Explicit",required=False,help_text="Check this box if the song contains explicit content, such as strong language or mature themes.")
+    
+
 
     class Meta:
         model = Song
-        exclude = ('genre',)
-    
-    def clean(self):
-        cleaned_data = self.cleaned_data
-        url = cleaned_data.get('url')
+        exclude = ('genre','artist')
 
-        if url and not url.startswith('http://'):
-            url = f'http://{url}'
-            cleaned_data['url'] = url
-        return cleaned_data
+
+   
+
  
 
 class UserForm(forms.ModelForm):
@@ -41,11 +42,21 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username','email','password',)
+        fields = ('username','email','password')
     
     
 class UserProfileForm(forms.ModelForm):
+    isArtist = forms.BooleanField(label="Do you want to create an artist account?", required=False)
+    isMature = forms.BooleanField(label="Mature Account", required=False,help_text="Explicit songs will not be shown to you if your account is not mature")
+    artistName = forms.CharField(label="Artist Name",required=False,help_text="Only required if creating an Artist Account.")
     class Meta:
         model = UserProfile
-        fields = ('website','picture')
+        fields = ('picture','isMature','isArtist','artistName',)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['song','commenter','body']
+        exclude = ('song','commenter')
+
 

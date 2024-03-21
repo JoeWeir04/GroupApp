@@ -1,19 +1,17 @@
-<ul>
+<ul class ="nav flex-column">
     {% if genres %}
-        {% for c in genres %}
+        {% for g in genres %}
             {% if g == current_genre %}
-            <li>
-            <strong>
-                <a href="{% url 'MVapp:show_genre' g.slug %}">{{ g.name }}</a>
-            </strong>
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'MVapp:show_genre' g.slug %}"><span data-feather="disc"></span>{{ g.name }}</a>
             </li>
             {% else %}
-            <li>
-                <a href="{% url 'MVapp:show_genre' g.slug %}">{{ g.name }}</a>
+            <li class ="nav-item">
+                <a class="nav-link " href="{% url 'MVapp:show_genre' g.slug %}"><span data-feather="disc"></span>{{ g.name }}</a>
             </li>  
             {% endif %}
         {% endfor %}
     {% else %}
-        <li><strong>There are no genres present.</strong></li>
+        <li class="nav-item">There are no genres present.</li>
     {% endif %}
 </ul>

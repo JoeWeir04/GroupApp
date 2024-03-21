@@ -1,0 +1,69 @@
+{% extends 'MVapp/base.html' %}
+{% load staticfiles %}
+
+
+{% block title_block %}
+    {% if song %}
+        {{ song.title }} 
+    {% else %}
+        Unknown Genre
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+    {% if song %}
+    <div class = "jumbotron p-4">
+        <div class = "containeer">
+            <h1 class ="jumbotron-heading">{{ song.title }}</h1>
+            <h3>by {{ song.artist }}</h3>
+            <span data-feather = "eye"></span> Views -  {{ song.views }} <br />
+            <span data-feather = "thumbs-up"></span> Likes: {{ song.likes }}
+        </div>
+    </div>
+
+    <div>
+        <strong id="like-count">{{ song.likes }}</strong>Likes
+        {% if user.is_authenticated %}
+        <button id="like-btn"
+            data-songid="{{ song.id }}"
+            class="btn btn-primary btn-sm"
+            type="button">
+            <span data-feather="thumbs-up"></span>
+            Like Song
+        </button>
+        {% endif %}
+    </div>
+
+    {% if song.isExplicit and not user.userprofile.isMature %}
+    <div class="container alert alert-danger mt-4">
+        Sorry, this song contains explicit content and cannot be viewed because your account settings 
+        indicate that you do not want to see explicit content. <br />
+         You can update your preferences in your
+        profile settings if you wish to change this.
+    </div>
+    {% else %}      
+    <iframe width="560" height="315" src="{{ song.url }}" referrerpolicy="no-referrer-when-downgrade" frameborder="0" allowfullscreen></iframe>
+    
+
+    <hr>
+    
+    <h2>Comments</h2>
+    {% for comment in comments %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <p class="card-text">{{ comment.body }}</p>
+            <p class="card-subtitle mb-2 text-muted">Comment by: {{ comment.commenter.username }}</p>
+        </div>
+    </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+    
+    <hr>
+    
+    {% include 'MVapp/comment_form.html' %}
+    {% endif %}
+    {% endif %}
+
+
+{% endblock %}
