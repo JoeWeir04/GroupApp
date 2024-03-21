@@ -16,7 +16,7 @@
         <div class = "container">
             <h1 class ="jumbotron-heading">{{ song.title }}</h1>
             <h3>by {{ song.artist }}</h3>
-            <span data-feather = "eye"></span> Views -  <strong>{{ song.views }}</strong><br />
+            <span data-feather = "eye"></span> Views -  <strong id="viewCount">{{ song.views }}</strong><br />
             <span data-feather = "thumbs-up"></span> Likes: <strong id="jumbotronLikeCount">{{ song.likes }}</strong>
         </div>
     </div>
