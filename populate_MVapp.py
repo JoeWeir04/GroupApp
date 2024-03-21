@@ -4,9 +4,21 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 from django.contrib.auth.models import User
-from MVapp.models import Genre,Song
+from MVapp.models import Genre,Song,UserProfile
 
 def populate():
+    def add_user_profile(user):
+        # Create a user profile for the given user
+        profile = UserProfile.objects.create(user=user)
+    
+        # Set additional fields or default values
+        profile.isArtist = True  # Example: Set the user profile as an artist by default
+        profile.isMature = False  # Example: Set the user profile as not mature by default
+        profile.artistName = f"{user.username}'s Artist Name"  # Example: Set a default artist name
+    
+        # Save the profile
+        profile.save()
+
     def add_user(username, password, email):
         user = User.objects.create_user(username=username, password=password, email=email)
         user.save()  # Save the created user object to the database
@@ -19,11 +31,13 @@ def populate():
     ]
 
     for user_data in users:
-        add_user(user_data['username'], user_data['password'], user_data['email'])
+        user = add_user(user_data['username'], user_data['password'], user_data['email'])
+        add_user_profile(user)
+        
 
     
 
-
+        
     pop_songs = [
         {'title':'Somebody that I used to know',
          'url':'https://www.youtube.com/embed/8UVNT4wvIGY?si=VGn7y449ib9CW_M-','views':12,'likes':12,'artist':'Gotye'},
