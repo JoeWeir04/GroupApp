@@ -43,7 +43,7 @@
     </div>
     {% else %}      
     <iframe width="560" height="315" src="{{ song.url }}" referrerpolicy="no-referrer-when-downgrade" frameborder="0" allowfullscreen></iframe>
-    {% endif %}
+    
 
     <hr>
     
@@ -62,7 +62,7 @@
     <hr>
     
     {% include 'MVapp/comment_form.html' %}
-
+    {% endif %}
     {% endif %}
 
 

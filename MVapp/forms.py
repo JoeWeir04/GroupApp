@@ -20,7 +20,7 @@ class SongForm(forms.ModelForm):
     title = forms.CharField(max_length=Song.TITLE_MAX_LENGTH,
                             help_text="Please enter the title of the song.")
     url = forms.URLField(max_length=200,
-                         help_text="Please enter the youtube embed URL of the song's music video.")
+                         help_text="Please enter only src URL of the youtube embed URL for the song's music video.")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
