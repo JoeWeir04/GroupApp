@@ -35,8 +35,13 @@
     <ul class = "list-group">
         {% for song in songs %}
         <div>
-        <li class = "list-group-item"><a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }} <span class="text-muted">- by {{ song.artist }}</span> </a></li>
-        <iframe width="560" height="315" src="{{ song.url }}" referrerpolicy="no-referrer-when-downgrade" frameborder="0" allowfullscreen></iframe>
+        <li class = "list-group-item">
+            <a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }} <span class="text-muted">- by {{ song.artist }}</span> </a>
+            {% if song.views %}
+            <span data-feather="eye"></span>  {{ song.views }}
+            {% endif %}
+        </li>
+        <iframe width="280" height="157.5" src="{{ song.url }}" referrerpolicy="no-referrer-when-downgrade" frameborder="0" allowfullscreen></iframe>
         </div>
         {% endfor %}
     </ul>

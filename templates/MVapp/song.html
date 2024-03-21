@@ -13,18 +13,17 @@
 {% block body_block %}
     {% if song %}
     <div class = "jumbotron p-4">
-        <div class = "containeer">
+        <div class = "container">
             <h1 class ="jumbotron-heading">{{ song.title }}</h1>
             <h3>by {{ song.artist }}</h3>
-            <span data-feather = "eye"></span> Views -  {{ song.views }} <br />
-            <span data-feather = "thumbs-up"></span> Likes: {{ song.likes }}
+            <span data-feather = "eye"></span> Views -  <strong>{{ song.views }}</strong><br />
+            <span data-feather = "thumbs-up"></span> Likes: <strong id="jumbotronLikeCount">{{ song.likes }}</strong>
         </div>
     </div>
 
-    <div>
-        <strong id="like-count">{{ song.likes }}</strong>Likes
+    <div class = "p-2">
         {% if user.is_authenticated %}
-        <button id="like-btn"
+        <button id="likeButton"
             data-songid="{{ song.id }}"
             class="btn btn-primary btn-sm"
             type="button">

@@ -40,7 +40,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'MVapp:add_genre' %}">Add Genre</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'MVapp:profile' user.username %}">Profile <span data-feather="user"></span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'MVapp:list_profiles' %}">All Profiles</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'MVapp:list_profiles' %}">All Profiles<span data-feather="users"></span></a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Register Here</a></li>
                         <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login<span data-feather="log-in"></span></a></li>

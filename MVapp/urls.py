@@ -16,5 +16,5 @@ path('song/<int:song_id>/comment/', views.comment_for_song, name='comment_for_so
 path('register_profile/',views.register_profile,name="register_profile"),
 path('like_song/', views.LikeSongView.as_view(), name='like_song'),
 path('profile/<username>/', views.ProfileView.as_view(), name='profile'),
-path('profiles/',views.ListProfilesView.as_view(), name ='list_profiles')
+path('profiles/',views.ListProfilesView.as_view(), name ='list_profiles'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

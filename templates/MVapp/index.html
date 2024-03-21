@@ -25,14 +25,19 @@
         <div class = "col mb-6">
             <div class = "card mb-6">
                 <div class = "card-body">
-                    <h2>Most Liked Genres</h2>
+                    <h2>Most Viewed Genres</h2>
                 
                     <p class ="card-text">
                     {% if genres %}
                     <ul class="list-group">
                     {% for genre in genres %}
                     <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
                         <a href="{% url 'MVapp:show_genre' genre.slug %}">{{ genre.name }} </a>
+                        <div class="ml-auto">
+                            {{ genre.views }} <span data-feather="eye"></span>
+                        </div>
+                        </div>
                     </li>
                     {% endfor %}
                     </ul>
@@ -46,13 +51,21 @@
         <div class = "col-md-6">
             <div class="card mb-6">
                 <div class = "card-body">
-                    <h2>Most Viewed Songs</h2>
+                    <h2>Most Liked Songs</h2>
                     <p class = "card-text">
                     {% if songs %}
                     <ul class="list-group">
                     {% for song in songs %}
                         <li class="list-group-item">
-                            <a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }} <span class="text-muted">- by {{ song.artist }}</span> </a>
+                            <div class="d-flex justify-content-between align-items-center">
+                            <a href="{% url 'MVapp:show_song' song.slug %}">{{ song.title }} 
+                            <span class="text-muted">- by {{ song.artist }}</span>
+                            </a>
+                            <div class="ml-auto">
+                            {{ song.likes }}
+                            <span data-feather="thumbs-up"></span>
+                            </div>
+                            </div>
                         </li>
                     {% endfor %}
                     </ul>

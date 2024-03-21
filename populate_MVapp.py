@@ -8,13 +8,11 @@ from MVapp.models import Genre,Song,UserProfile
 
 def populate():
     def add_user_profile(user):
-        # Create a user profile for the given user
         profile = UserProfile.objects.create(user=user)
     
-        # Set additional fields or default values
-        profile.isArtist = True  # Example: Set the user profile as an artist by default
-        profile.isMature = False  # Example: Set the user profile as not mature by default
-        profile.artistName = f"{user.username}'s Artist Name"  # Example: Set a default artist name
+        profile.isArtist = True
+        profile.isMature = False 
+        profile.artistName = f"{user.username}'s Artist Name" 
     
         # Save the profile
         profile.save()
@@ -25,9 +23,11 @@ def populate():
         return user
 
     users = [
-        {'username': 'user1', 'password': 'password1', 'email': 'user1@example.com'},
-        {'username': 'user2', 'password': 'password2', 'email': 'user2@example.com'},
-        {'username': 'user3', 'password': 'password3', 'email': 'user3@example.com'}
+        {'username': 'Mark', 'password': 'password1', 'email': 'user1@example.com'},
+        {'username': 'musicLover555', 'password': 'password2', 'email': 'user2@example.com'},
+        {'username': 'ILoveMusicLover555', 'password': 'password3', 'email': 'user3@example.com'},
+        {'username': 'Drake', 'password': 'password3', 'email': 'user3@example.com'},
+        {'username': 'MarkFan', 'password': 'password3', 'email': 'user3@example.com'}
     ]
 
     for user_data in users:
