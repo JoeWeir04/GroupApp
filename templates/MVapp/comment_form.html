@@ -1,0 +1,6 @@
+
+<form action="{% url 'MVapp:comment_for_song' song_id=song.id %}" method="post">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Add comment</button>
+</form>

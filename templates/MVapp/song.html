@@ -1,6 +1,7 @@
 {% extends 'MVapp/base.html' %}
 {% load staticfiles %}
 
+
 {% block title_block %}
     {% if song %}
         {{ song.title }} 
@@ -29,6 +30,23 @@
     {% else %}      
     <iframe width="560" height="315" src="{{ song.url }}" referrerpolicy="no-referrer-when-downgrade" frameborder="0" allowfullscreen></iframe>
     {% endif %}
+
+    <hr>
+    
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        <p>{{ comment.body }}</p>
+        <p>Comment by: {{ comment.commenter.username }}</p>
+        <hr>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+    
+    <hr>
+    
+    {% include 'MVapp/comment_form.html' %}
+
     {% endif %}
+
 
 {% endblock %}
