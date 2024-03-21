@@ -47,4 +47,13 @@
     border-color: #007bff;
 }
 
+.like-info .thumbs-up-icon {
+    color: black; /* Change the color of the thumbs-up icon to black */
+    margin-right: 5px; /* Adjust margin if needed */
+}
+
+.like-info {
+    color: black; /* Change the color of the likes count to black */
+}
+
 

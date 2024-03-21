@@ -4,26 +4,40 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 from django.contrib.auth.models import User
-from MVapp.models import Genre,Song
+from MVapp.models import Genre,Song,UserProfile
 
 def populate():
+    def add_user_profile(user):
+        profile = UserProfile.objects.create(user=user)
+    
+        profile.isArtist = True
+        profile.isMature = False 
+        profile.artistName = f"{user.username}'s Artist Name" 
+    
+        # Save the profile
+        profile.save()
+
     def add_user(username, password, email):
         user = User.objects.create_user(username=username, password=password, email=email)
         user.save()  # Save the created user object to the database
         return user
 
     users = [
-        {'username': 'user1', 'password': 'password1', 'email': 'user1@example.com'},
-        {'username': 'user2', 'password': 'password2', 'email': 'user2@example.com'},
-        {'username': 'user3', 'password': 'password3', 'email': 'user3@example.com'}
+        {'username': 'Mark', 'password': 'password1', 'email': 'user1@example.com'},
+        {'username': 'musicLover555', 'password': 'password2', 'email': 'user2@example.com'},
+        {'username': 'ILoveMusicLover555', 'password': 'password3', 'email': 'user3@example.com'},
+        {'username': 'Drake', 'password': 'password3', 'email': 'user3@example.com'},
+        {'username': 'MarkFan', 'password': 'password3', 'email': 'user3@example.com'}
     ]
 
     for user_data in users:
-        add_user(user_data['username'], user_data['password'], user_data['email'])
+        user = add_user(user_data['username'], user_data['password'], user_data['email'])
+        add_user_profile(user)
+        
 
     
 
-
+        
     pop_songs = [
         {'title':'Somebody that I used to know',
          'url':'https://www.youtube.com/embed/8UVNT4wvIGY?si=VGn7y449ib9CW_M-','views':12,'likes':12,'artist':'Gotye'},

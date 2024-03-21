@@ -19,8 +19,8 @@ from django.utils.decorators import method_decorator
 
 def index(request):
     context_dict = {}
-    genre_list = Genre.objects.order_by('-likes')[:5]
-    songs_list = Song.objects.order_by('-views')[:5]
+    genre_list = Genre.objects.order_by('-views')[:5]
+    songs_list = Song.objects.order_by('-likes')[:5]
     context_dict = {}
     context_dict['genres'] = genre_list
     context_dict['songs'] = songs_list
@@ -83,9 +83,11 @@ def show_genre(request, genre_name_slug):
     context_dict = {}
     try:
         genre = Genre.objects.get(slug=genre_name_slug)
-        songs = Song.objects.filter(genre=genre)
+        songs = Song.objects.filter(genre=genre).order_by('-views')
         context_dict['songs'] = songs
         context_dict['genre'] = genre
+        genre.views = genre.views + 1
+        genre.save()
     except Genre.DoesNotExist:
         context_dict['songs'] = None
         context_dict['genre'] = None
@@ -99,6 +101,8 @@ def show_song(request, song_name_slug):
         comments = Comment.objects.filter(song=song)
         context_dict['song'] = song
         context_dict['comments'] = comments
+        song.views = song.views + 1
+        song.save()
     except Song.DoesNotExist:
         context_dict['song'] = None
 
@@ -199,16 +203,18 @@ class LikeSongView(View):
     def get(self,request):
         song_id= request.GET['song_id']
         try:
-            song=Song.objects.get(id=int(song_id))
+            song= Song.objects.get(id=int(song_id))
         except Song.DoesNotExist:
             return HttpResponse(-1)
         except ValueError:
             return HttpResponse(-1)
-        
         song.likes = song.likes + 1
         song.save()
 
         return HttpResponse(song.likes)
+    
+
+
 
 
 
