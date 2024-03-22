@@ -99,6 +99,10 @@ def show_song(request, song_name_slug):
         comments = Comment.objects.filter(song=song)
         context_dict['song'] = song
         context_dict['comments'] = comments
+        
+        #userProfile = FETCH USER SOMEHOW
+        #userProfile.newListen(song)
+        
     except Song.DoesNotExist:
         context_dict['song'] = None
 

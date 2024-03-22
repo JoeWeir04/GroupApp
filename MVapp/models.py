@@ -2,7 +2,6 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
-
 class Genre(models.Model):
     NAME_MAX_LENGTH = 128
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
@@ -20,8 +19,6 @@ class Genre(models.Model):
         verbose_name_plural = 'Genre'
     def __str__(self):
         return self.name
-    
-    
     
 class Song(models.Model):
     TITLE_MAX_LENGTH = 128
@@ -48,8 +45,8 @@ class Song(models.Model):
 
     def __str__(self):
         return self.title
-   
-
+        
+    
 class UserProfile(models.Model):
     ARTIST_LENGTH = 200
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -57,8 +54,24 @@ class UserProfile(models.Model):
     isMature = models.BooleanField(default=False)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     artistName = models.CharField(max_length=ARTIST_LENGTH, blank=True,help_text = "Only required if creating an Artist Account",)
-
     
+    songHist1 = models.ForeignKey(Song, blank=True)
+    songHist2 = models.ForeignKey(Song, blank=True)
+    songHist3 = models.ForeignKey(Song, blank=True)
+    songHist4 = models.ForeignKey(Song, blank=True)
+    songHist5 = models.ForeignKey(Song, blank=True)
+    songHistory = [songHist1,songHist2,songHist3,songHist4,songHist5]
+    
+    def newListen(self,newSong):
+        if newSong in self.songHistory:
+            return
+        
+        for song in self.songHistory:
+            tickSongs(newSong,song)
+        for i in range(4,0):
+            self.songHistory[i]=self.songHistory[i-1]
+        self.songHistory[0] = newSong
+        
 
     def save(self, *args, **kwargs):
         if self.isArtist:
@@ -86,3 +99,35 @@ class Comment(models.Model):
 
         def __str__(self):
             return f'Comment by {self.commenter} on {self.song}'
+        
+        
+def tickSongs(song1,song2):
+    if song1.id > song2.id:
+        tickSongs(song2,song1)
+    else:
+        relation, wasCreated = SongRelation.objects.get_or_create(leftSong=song1,rightSong=song2)
+        if not wasCreated:
+            relation.increment()
+        
+class SongRelation(models.Model):
+    
+    class Meta:
+        unique_together = ((leftSong,rightSong,))
+        
+    #Important, make sure leftSong and rightSong are ordered when creating this relation.
+    leftSong = models.ForeignKey(Song, on_delete=models.CASCADE,blank=False)
+    rightSong = models.ForeignKey(Song, on_delete=models.CASCADE,blank=False)
+    points = models.IntegerField(default = 0, blank=False)
+    
+    def validate(self):
+        if self.leftSong == self.rightSong:
+            self.delete()
+            
+    def increment(self):
+        self.points += 1
+        
+    def __str__(self):
+        return str(self.leftSong) + " and " + str(self.rightSong) + " ticked " + str(self.points) + "times"
+    
+    def __int__(self):
+        return self.points
