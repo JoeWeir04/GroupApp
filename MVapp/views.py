@@ -213,6 +213,16 @@ class LikeSongView(View):
 
         return HttpResponse(song.likes)
     
+def get_song_views(request):
+    if request.method == 'GET':
+        song_id = request.GET.get('song_id')
+        try:
+            song = Song.objects.get(id=song_id)
+            return HttpResponse(str(song.views))
+        except Song.DoesNotExist:
+            return HttpResponse('Song not found', status=404)
+    return HttpResponse('Invalid request method', status=400)
+    
 
 
 
