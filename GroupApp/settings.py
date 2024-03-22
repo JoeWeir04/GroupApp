@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'MVapp',
     'registration',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,5 @@ REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = 'MVapp:index'
 
 LOGIN_URL = 'auth_login'
+
+TAGGIT_CASE_INSENSITIVE = True

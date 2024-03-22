@@ -18,4 +18,5 @@ path('like_song/', views.LikeSongView.as_view(), name='like_song'),
 path('profile/<username>/', views.ProfileView.as_view(), name='profile'),
 path('profiles/',views.ListProfilesView.as_view(), name ='list_profiles'),
 path('get_song_views/', views.get_song_views, name='get_song_views'),
+path('tags/<slug:tag_slug>/', views.song_list_by_tag, name='song_list_by_tag'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

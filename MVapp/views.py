@@ -13,6 +13,7 @@ from django.views import View
 from django.contrib.auth.models import User
 from MVapp.models import UserProfile
 from django.utils.decorators import method_decorator
+from taggit.models import Tag
 
 
 # Create your views here.
@@ -222,6 +223,12 @@ def get_song_views(request):
         except Song.DoesNotExist:
             return HttpResponse('Song not found', status=404)
     return HttpResponse('Invalid request method', status=400)
+
+def song_list_by_tag(request, tag_slug):
+    songs = Song.objects.filter(tags__slug=tag_slug)
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    
+    return render(request, 'MVapp/song_list_by_tag.html', {'songs': songs, 'tag': tag})
     
 
 

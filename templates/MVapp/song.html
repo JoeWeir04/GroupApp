@@ -32,6 +32,12 @@
         </button>
         {% endif %}
     </div>
+    <div>
+        <h2>Tags:</h2>
+        {% for tag in song.tags.all %}
+        <li> {{ tag.name }} </li>
+        {% endfor %}
+    </div>
 
     {% if song.isExplicit and not user.userprofile.isMature %}
     <div class="container alert alert-danger mt-4">

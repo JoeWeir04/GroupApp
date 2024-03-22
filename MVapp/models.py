@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 
 
 class Genre(models.Model):
@@ -34,6 +35,7 @@ class Song(models.Model):
     slug = models.SlugField(unique=True)
     artist = models.CharField(max_length = 200,blank = True)
     isExplicit = models.BooleanField(default=False)
+    tags = TaggableManager()
 
     def save(self, *args, **kwargs):  
         if not self.slug:

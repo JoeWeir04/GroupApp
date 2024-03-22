@@ -3,3 +3,4 @@ django-registration-redux==2.2
 pillow==10.2.0
 pytz==2023.3.post1
 sqlparse==0.4.4
+django-taggit==2.1.0

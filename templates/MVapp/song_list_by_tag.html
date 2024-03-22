@@ -1,0 +1,11 @@
+{% extends 'MVapp/base.html' %}
+{% load staticfiles %}
+{% block title_block %}
+<h2>Songs tagged with " {{ tag.name }}"</h2>
+{% for song in songs %}
+	<p><a href="{% url 'MVapp:show_song' song.id %}">{{ song.title }}</a></p>
+{% endfor %}
+
+
+{% endblock %}
+
