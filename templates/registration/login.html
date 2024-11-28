@@ -10,8 +10,19 @@
         <h1 class = "jumbotron-heading">Login</h1>
         <div class="p-5">
             <form method="form-signin" role="form" method="post" action=".">
-                {% csrf_token %}
-                {{ form.errors }}
+                {% csrf_token %} 
+                {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Oops! There was an error:</strong>
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                        <li>{{ field }} - {{ error }}</li>
+                        {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
                 <div class="p-1">
                 <label for="inputUsername" class="sr-only">Username</label>
                 </div>

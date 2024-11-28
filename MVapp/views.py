@@ -78,7 +78,7 @@ def add_genre(request):
             print(form.errors)
     return render(request, 'MVapp/add_genre.html',{'form':form})
 
-
+ 
 def show_genre(request, genre_name_slug):
     context_dict = {}
     try:
